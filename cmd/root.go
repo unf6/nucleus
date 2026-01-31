@@ -2,6 +2,7 @@ package cmd
 
 import (
         "github.com/spf13/cobra"
+        "github.com/unf6/cmd/plugins"
 )
 
 var rootCmd = &cobra.Command{
@@ -18,4 +19,8 @@ Features:
 
 func Execute() error {
         return rootCmd.Execute()
+}
+
+func init() {
+        plugins.Init(rootCmd)
 }
