@@ -33,7 +33,7 @@ func runShell(cmd *cobra.Command, args []string) error {
 	debug, _ := cmd.Flags().GetBool("debug")
 
 	if !config.IsInstalled() {
-		return log.Error("Nucleus Shell is not installed. Run 'nucleus install' first")
+		log.Error("Nucleus Shell is not installed. Run 'nucleus install' first")
 	}
 
 	if reload {
@@ -45,7 +45,7 @@ func runShell(cmd *cobra.Command, args []string) error {
 
 	shellPath, err := config.GetConfigDir()
 	if err != nil {
-		return log.Error("failed to get shell config path: %w", err)
+		 log.Error("failed to get shell config path: %w", err)
 	}
 
 	var quickshellCmd *exec.Cmd
@@ -63,7 +63,7 @@ func runShell(cmd *cobra.Command, args []string) error {
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
 	if err := quickshellCmd.Start(); err != nil {
-		return log.Error("failed to start QuickShell: %w", err)
+		 log.Error("failed to start QuickShell: %w", err)
 	}
 
 	log.Warn("Nucleus Shell started (PID: %d)\n", quickshellCmd.Process.Pid)
@@ -75,7 +75,7 @@ func runShell(cmd *cobra.Command, args []string) error {
 	}()
 
 	if err := quickshellCmd.Wait(); err != nil {
-		return log.Error("QuickShell exited with error: %w", err)
+		 log.Error("QuickShell exited with error", err)
 	}
 
 	return nil
