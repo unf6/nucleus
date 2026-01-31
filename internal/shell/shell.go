@@ -11,7 +11,7 @@ func KillQuickShell() error {
                 if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
                         return nil                             
                 }
-                return log.Error("Failed To Kill QuickShell: %w", err)
+                log.Error("Failed To Kill QuickShell", err)
         }
         return nil
 }
