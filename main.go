@@ -3,6 +3,8 @@ package main
 import (
         "github.com/unf6/nucleus/cmd"
         "github.com/charmbracelet/log"
+
+        "os"
 )
 
 func main() {
