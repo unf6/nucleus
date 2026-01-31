@@ -10,6 +10,11 @@ const (
 	RepoURL       = "https://github.com/xzepyx/nucleus-shell.git"
 )
 
+var Repos = map[string]string{
+	"official": "https://github.com/xZepyx/nucleus-plugins.git",
+}
+
+
 func GetConfigDir() (string, error) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
