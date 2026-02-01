@@ -87,40 +87,7 @@ var fetchMachineCmd = &cobra.Command{
 	},
 }
 
-var fetchOneCmd = &cobra.Command{
-	Use:  "<pluginId>",
-	Args: cobra.ExactArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if err := core.UpdateAllRepos(); err != nil {
-			return err
-		}
-
-		repo, dir, err := core.FindPlugin(args[0])
-		if err != nil {
-			return err
-		}
-
-		m, err := core.LoadManifest(dir + "/manifest.json")
-		if err != nil {
-			return err
-		}
-
-		img := m.Img
-		if img == "" {
-			img = "none"
-		}
-
-		fmt.Printf(
-			"id: %s\nname: %s\nversion: %s\nauthor: %s\ndescription: %s\nimg: %s\nrepo: %s\n---\n",
-			m.ID, m.Name, m.Version, m.Author,
-			m.Description, img, repo,
-		)
-		return nil
-	},
-}
-
 func init() {
 	fetchCmd.AddCommand(fetchAllCmd, fetchMachineCmd)
 	Cmd.AddCommand(fetchCmd)
-	Cmd.AddCommand(fetchOneCmd)
 }
