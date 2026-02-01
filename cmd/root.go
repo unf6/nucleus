@@ -2,7 +2,7 @@ package cmd
 
 import (
         "github.com/spf13/cobra"
-        "github.com/unf6/cmd/plugins"
+        "github.com/unf6/nucleus/cmd/plugins"
 )
 
 var rootCmd = &cobra.Command{
