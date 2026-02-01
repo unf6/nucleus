@@ -13,6 +13,7 @@ import (
 
 var installCmd = &cobra.Command{
 	Use:  "install <pluginId>",
+	Short: "Install A plugin",
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := core.UpdateAllRepos(); err != nil {
