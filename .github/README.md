@@ -1,6 +1,6 @@
-# nucleus-cli
+# Nucleus
 
-`nucleus-cli` is the command-line interface for managing and running **Nucleus Shell**, a modern Wayland shell built on **QuickShell** for **Hyprland**.
+`nucleus` is the command-line interface for managing and running **Nucleus Shell**, a modern Wayland shell built on **QuickShell** for **Hyprland**.
 
 This repository contains the **cli** for **nucleus-shell**
 
@@ -138,31 +138,3 @@ If missing, `nucleus run` will refuse to start.
 * zenith(ai backend): https://github.com/xZepyx/zenith
  
 ---
-
-## Process Behavior
-
-* Launches `quickshell` with `--no-duplicate`
-* Daemonized by default
-* Foreground mode when `--debug` is set
-* Reload uses `pkill -f quickshell`
-* Graceful shutdown on `SIGINT` / `SIGTERM`
-
----
-
-## Internal Layout
-
-```text
-cmd/
- ├─ root.go        # Root Cobra command
- ├─ run.go         # `nucleus run`
- └─ plugins/       # Plugin namespace (WIP)
-
-internal/
- ├─ config/        # Config paths, install checks
- └─ shell/         # QuickShell process control
-```
----
-
-## License
-
-MIT
