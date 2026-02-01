@@ -23,6 +23,14 @@ func GetConfigDir() (string, error) {
 	return filepath.Join(homeDir, ".config", "quickshell", ConfigDirName), nil
 }
 
+func GetPluginDir() (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(homeDir, ".config", ConfigDirName, "plugins"), nil
+}
+
 func IsInstalled() bool {
 	configDir, err := GetConfigDir()
 	if err != nil {
