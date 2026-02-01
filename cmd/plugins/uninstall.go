@@ -12,6 +12,7 @@ import (
 
 var uninstallCmd = &cobra.Command{
 	Use:  "uninstall <pluginId>",
+	Short: "Uninstall a plugin",
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		dst := filepath.Join(core.InstallDir, args[0])
