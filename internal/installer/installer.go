@@ -1,13 +1,9 @@
 package installer
 
-type TaskResult struct {
-	Success bool
-	Message string
-	Error   error
-}
-
-type ProgressCallback func(current, total int, message string)
-
+import (
+	"os"
+	"os/exec"
+)
 var Dependencies = []string{
 	"bluez-utils",
 	"brightnessctl",
@@ -49,4 +45,13 @@ var Dependencies = []string{
 	"wireplumber",
 	"xdg-desktop-portal-hyprland",
 	"zenity",
+}
+
+func installDependencies() error {
+	args := append([]string{"yay", "-S", "--needed", "--noconfirm"}, Dependencies...)
+	cmd := exec.Command("sudo", args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
 }
