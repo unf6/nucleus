@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-const (
+var (
 	InstallDir = filepath.Join(os.Getenv("HOME"), ".config/nucleus-shell/plugins")
 	CacheBase  = "/tmp/nucleus-plugins"
 )
