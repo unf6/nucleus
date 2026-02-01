@@ -1,7 +1,7 @@
 package plugins
 
 import (
-	"github.com/charmbracelet/log"
+	"errors"
   "github.com/unf6/nucleus/internal/config"
 	"os"
 	"os/exec"
@@ -46,5 +46,9 @@ func FindPlugin(id string) (repo string, path string, err error) {
 			return repo, p, nil
 		}
 	}
-	return "", "", log.Error("plugin not found")
+	return "", "", errors.New("plugin not found")
+}
+
+func CopyDir(src, dst string) error {
+	return exec.Command("cp", "-r", src, dst).Run()
 }
