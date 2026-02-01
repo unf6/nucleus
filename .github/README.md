@@ -161,23 +161,6 @@ internal/
  ├─ config/        # Config paths, install checks
  └─ shell/         # QuickShell process control
 ```
-
----
-
-## Logging
-
-* Uses `github.com/charmbracelet/log`
-* Logs to stdout/stderr
-* Debug output enabled via `--debug`
-
----
-
-## Status
-
-* CLI core: usable
-* Plugin system: WIP
-* Installer command: planned
-
 ---
 
 ## License
