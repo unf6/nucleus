@@ -47,7 +47,7 @@ var Dependencies = []string{
 	"zenity",
 }
 
-func installDependencies() error {
+func InstallDependencies() error {
 	args := append([]string{"yay", "-S", "--needed", "--noconfirm"}, Dependencies...)
 	cmd := exec.Command("sudo", args...)
 	cmd.Stdout = os.Stdout
