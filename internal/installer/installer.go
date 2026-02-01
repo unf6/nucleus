@@ -1,5 +1,13 @@
 package installer
 
+type TaskResult struct {
+	Success bool
+	Message string
+	Error   error
+}
+
+type ProgressCallback func(current, total int, message string)
+
 var Dependencies = []string{
 	"bluez-utils",
 	"brightnessctl",
