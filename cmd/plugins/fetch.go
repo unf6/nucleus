@@ -38,15 +38,15 @@ var fetchAllCmd = &cobra.Command{
 					continue
 				}
 
-				img := m.Img
-				if img == "" {
-					img = "none"
+				requires_nucleus := m.Requires_Nucleus
+				if requires_nucleus == "" {
+					requires_nucleus = "none"
 				}
 
 				fmt.Printf(
-					"id: %s\nname: %s\nversion: %s\nauthor: %s\ndescription: %s\nimg: %s\nrepo: %s\n---\n",
+					"id: %s\nname: %s\nversion: %s\nauthor: %s\ndescription: %s\nrequires_nucleus: %s\nrepo: %s\n---\n",
 					m.ID, m.Name, m.Version, m.Author,
-					m.Description, img, repo,
+					m.Description, m.Requires_Nucleus, repo,
 				)
 			}
 		}
@@ -72,14 +72,14 @@ var fetchMachineCmd = &cobra.Command{
 				}
 
 				m, _ := core.LoadManifest(dir + "/manifest.json")
-				img := m.Img
-				if img == "" {
-					img = "none"
+				requires_nucleus := m.Requires_Nucleus
+				if requires_nucleus == "" {
+					requires_nucleus = "none"
 				}
 
 				fmt.Printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
 					m.ID, m.Name, m.Version, m.Author,
-					m.Description, img, repo,
+					m.Description, m.Requires_Nucleus, repo,
 				)
 			}
 		}
