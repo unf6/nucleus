@@ -115,7 +115,7 @@ func RunShellIPCCommand(args []string) {
 	}
 
 	if len(args) == 0 {
-		printIPCHelp(shellFile)
+		PrintIPCHelp(shellFile)
 		return
 	}
 
