@@ -27,9 +27,9 @@ var installCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(installCmd)
 	installCmd.Flags().BoolP("force", "f", false, "Force reinstall (removes existing installation)")
-	installCmd.Flags().Bool("dev", "d", false, "Clone full git repository (for development)")
-    installCmd.Flags().Bool("stable", "s", false, "Update latest stable release")
-    installCmd.Flags().Bool("indev", "i", false, "Update latest pre-release")
+	installCmd.Flags().BoolP("dev", "d", false, "Clone full git repository (for development)")
+    installCmd.Flags().BoolP("stable", "s", false, "Update latest stable release")
+    installCmd.Flags().BoolP("indev", "i", false, "Update latest pre-release")
 
 }
 
