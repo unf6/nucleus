@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"time" 
+	"context" 
+	"github.com/unf6/nucleus/internal/config"
 )
+
 var Dependencies = []string{
 	"bluez-utils",
 	"brightnessctl",
@@ -87,7 +91,6 @@ func ensureYayInstalled() error {
 	return nil
 }
 
-
 func InstallDependencies() error {
 
     if err := ensureYayInstalled(); err != nil {
@@ -100,4 +103,70 @@ func InstallDependencies() error {
 	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
+}
+
+func CopyToQuickShellConfig() error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+
+	src, err := config.GetConfigDir() // where the repo was cloned
+	if err != nil {
+		return err
+	}
+
+	dst := filepath.Join(home, ".config", "quickshell", "nucleus-shell")
+
+	fmt.Printf("\nCopying nucleus-shell to %s\n", dst)
+
+	// Ensure parent dir exists
+	if err := os.MkdirAll(filepath.Dir(dst), 0755); err != nil {
+		return err
+	}
+
+	// Remove existing target
+	_ = os.RemoveAll(dst)
+
+	cmd := exec.Command("cp", "-r", src, dst)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
+}
+
+
+func RunWithSpinner(label string, fn func() error) error {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	sp := spinner.Dots
+	frame := 0
+
+	// Hide cursor
+	fmt.Print("\x1B[?25l")
+	defer fmt.Print("\x1B[?25h")
+
+	done := make(chan error, 1)
+
+	go func() {
+		done <- fn()
+	}()
+
+	for {
+		select {
+		case err := <-done:
+			fmt.Printf("\r\x1B[K✓ %s\n", label)
+			return err
+
+		default:
+			fmt.Printf(
+				"\r\x1B[K%s %s",
+				sp.Frames[frame],
+				label,
+			)
+			frame = (frame + 1) % len(sp.Frames)
+			time.Sleep(sp.Interval)
+		}
+	}
 }
