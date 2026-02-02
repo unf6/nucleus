@@ -28,6 +28,9 @@ func init() {
 	rootCmd.AddCommand(installCmd)
 	installCmd.Flags().BoolP("force", "f", false, "Force reinstall (removes existing installation)")
 	installCmd.Flags().Bool("dev", false, "Clone full git repository (for development)")
+    installCmd.Flags().Bool("stable", false, "Update latest stable release")
+    installCmd.Flags().Bool("indev", false, "Update latest pre-release")
+
 }
 
 func runInstall(cmd *cobra.Command, args []string) error {
