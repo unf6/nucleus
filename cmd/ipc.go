@@ -31,5 +31,5 @@ func ipcCmd() *cobra.Command {
 }
 
 func init() {
-	rootCmd.AddCommand(ipcCmd)
+	rootCmd.AddCommand(ipcCmd())
 }
