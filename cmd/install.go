@@ -102,6 +102,14 @@ func runUpdate() error {
 	if err := gitCmd.Run(); err != nil {
 		return err
 	}
+
+	if err := installer.RunWithSpinner(
+	"Copying Nucleus Shell to QuickShell config",
+	installer.CopyToQuickShellConfig,
+); err != nil {
+	return err
+}
+	
 	fmt.Println("\n✅ Updated successfully!")
 	return nil
 }
