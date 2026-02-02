@@ -6,6 +6,11 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"archive/zip"
+	"encoding/json"
+	"io"
+	"net/http"
+	"path/filepath"
 
 	"github.com/unf6/nucleus/internal/config"
 	"github.com/unf6/nucleus/internal/installer"
