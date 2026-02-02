@@ -119,18 +119,6 @@ func runUpdate(mode string) error {
 	configPath := filepath.Join(home, ".config", "nucleus-shell", "config", "configuration.json")
 	qsDir := filepath.Join(home, ".config", "quickshell", "nucleus-shell")
 
-	stable, _ := installCmd.Flags().GetBool("stable")
-	indev, _ := installCmd.Flags().GetBool("indev")
-
-	if stable && indev {
-		return fmt.Errorf("cannot use --stable and --indev together")
-	}
-
-	mode := "stable"
-	if indev {
-		mode = "indev"
-	}
-
 	cfgRaw, err := os.ReadFile(configPath)
 	if err != nil {
 		return fmt.Errorf("configuration.json not found")
