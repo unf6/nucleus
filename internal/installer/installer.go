@@ -61,7 +61,6 @@ func ensureYayInstalled() error {
 
 	fmt.Println("yay not found, installing yay...")
 
-	// Install prerequisites
 	preReq := exec.Command("sudo", "pacman", "-S", "--needed", "--noconfirm", "base-devel", "git")
 	preReq.Stdout = os.Stdout
 	preReq.Stderr = os.Stderr
@@ -69,7 +68,6 @@ func ensureYayInstalled() error {
 		return fmt.Errorf("failed to install prerequisites: %w", err)
 	}
 
-	// Clone yay-bin
 	tmpDir := "/tmp/yay-bin"
 	_ = os.RemoveAll(tmpDir)
 
@@ -80,7 +78,6 @@ func ensureYayInstalled() error {
 		return fmt.Errorf("failed to clone yay: %w", err)
 	}
 
-	// Build & install
 	build := exec.Command("bash", "-c", fmt.Sprintf("cd %s && makepkg -si --noconfirm", tmpDir))
 	build.Stdout = os.Stdout
 	build.Stderr = os.Stderr
@@ -112,21 +109,25 @@ func CopyToQuickShellConfig() error {
 		return err
 	}
 
-	src, err := config.GetConfigDir() // where the repo was cloned
+	repoRoot, err := config.GetConfigDir()
 	if err != nil {
 		return err
 	}
 
+	src := filepath.Join(repoRoot, "quickshell", "nucleus-shell")
 	dst := filepath.Join(home, ".config", "quickshell", "nucleus-shell")
 
-	fmt.Printf("\nCopying nucleus-shell to %s\n", dst)
+	// Sanity check
+	if _, err := os.Stat(src); err != nil {
+		return fmt.Errorf("source quickshell config not found: %s", src)
+	}
 
-	// Ensure parent dir exists
+	fmt.Printf("\nCopying %s → %s\n", src, dst)
+
 	if err := os.MkdirAll(filepath.Dir(dst), 0755); err != nil {
 		return err
 	}
-
-	// Remove existing target
+	
 	_ = os.RemoveAll(dst)
 
 	cmd := exec.Command("cp", "-r", src, dst)
@@ -135,6 +136,7 @@ func CopyToQuickShellConfig() error {
 
 	return cmd.Run()
 }
+
 
 
 func RunWithSpinner(label string, fn func() error) error {
