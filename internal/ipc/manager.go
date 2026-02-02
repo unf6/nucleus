@@ -68,7 +68,7 @@ func GetShellIPCCompletions(args []string, _ string) []string {
 	var targets ipcTargets
 
 	if output, err := cmd.Output(); err == nil {
-		targets = parseTargetsFromIPCShowOutput(string(output))
+		targets = ParseTargetsFromIPCShowOutput(string(output))
 	} else {
 		fmt.Fprintf(os.Stderr, "Error getting IPC show output for completions: %v\n", err)
 		return nil
@@ -157,7 +157,7 @@ func PrintIPCHelp(shellFile string) {
 		return
 	}
 
-	targets := parseTargetsFromIPCShowOutput(string(output))
+	targets := ParseTargetsFromIPCShowOutput(string(output))
 	if len(targets) == 0 {
 		fmt.Println("No IPC targets available")
 		return
