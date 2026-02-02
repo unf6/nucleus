@@ -35,7 +35,17 @@ func init() {
 
 func runInstall(cmd *cobra.Command, args []string) error {
 	force, _ := cmd.Flags().GetBool("force")
+    stable, _ := cmd.Flags().GetBool("stable")
+    indev, _ := cmd.Flags().GetBool("indev")
 
+	if stable && indev {
+	return fmt.Errorf("cannot use --stable and --indev together")
+ }
+
+	mode := "stable"
+if indev {
+	mode = "indev"
+}
 	if config.IsInstalled() && !force {
 		fmt.Println("Nucleus Shell is already installed.")
 		fmt.Print("Would you like to update instead? [y/N]: ")
@@ -45,7 +55,7 @@ func runInstall(cmd *cobra.Command, args []string) error {
 		resp = strings.TrimSpace(strings.ToLower(resp))
 
 		if resp == "y" || resp == "yes" {
-			return runUpdate()
+			return runUpdate(mode)
 		}
 
 		fmt.Println("Use --force to reinstall.")
@@ -95,7 +105,7 @@ if err := installer.RunWithSpinner(
 	return nil
 }
 
-  func runUpdate() error {
+func runUpdate(mode string) error {
 	const (
 		repo = "xZepyx/nucleus-shell"
 		api  = "https://api.github.com/repos/" + repo + "/releases"
