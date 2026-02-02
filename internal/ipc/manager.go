@@ -20,7 +20,7 @@ var qsHasAnyDisplay = sync.OnceValue(func() bool {
 	return strings.Contains(string(out), "--any-display")
 })
 
-func parseTargetsFromIPCShowOutput(output string) ipcTargets {
+func ParseTargetsFromIPCShowOutput(output string) ipcTargets {
 	targets := make(ipcTargets)
 	var currentTarget string
 	for _, line := range strings.Split(output, "\n") {
@@ -52,7 +52,7 @@ func parseTargetsFromIPCShowOutput(output string) ipcTargets {
 	return targets
 }
 
-func getShellIPCCompletions(args []string, _ string) []string {
+func GetShellIPCCompletions(args []string, _ string) []string {
 	shellFile, err := config.GetShellFile()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error getting shell file path: %v\n", err)
@@ -107,7 +107,7 @@ func getShellIPCCompletions(args []string, _ string) []string {
 	return nil
 }
 
-func runShellIPCCommand(args []string) {
+func RunShellIPCCommand(args []string) {
 	shellFile, err := config.GetShellFile()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error getting shell file path: %v\n", err)
@@ -140,7 +140,7 @@ func runShellIPCCommand(args []string) {
 	}
 }
 
-func printIPCHelp(shellFile string) {
+func PrintIPCHelp(shellFile string) {
 	fmt.Println("Usage: dms ipc <target> <function> [args...]")
 	fmt.Println()
 
