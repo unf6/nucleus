@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"time" 
-	"context" 
 	"path/filepath" 
 	"github.com/unf6/nucleus/internal/config"
 	spinner "gabe565.com/spinners"
