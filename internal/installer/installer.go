@@ -8,6 +8,7 @@ import (
 	"context" 
 	"path/filepath" 
 	"github.com/unf6/nucleus/internal/config"
+	spinner "gabe565.com/spinners"
 )
 
 var Dependencies = []string{
@@ -138,8 +139,8 @@ func CopyToQuickShellConfig() error {
 
 
 func RunWithSpinner(label string, fn func() error) error {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	//ctx, cancel := context.WithCancel(context.Background())
+	//defer cancel()
 
 	sp := spinner.Dots
 	frame := 0
