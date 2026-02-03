@@ -11,7 +11,9 @@ This repository contains the **cli** for **nucleus-shell**
 * Start and stop Nucleus Shell
 * Reload running QuickShell instances
 * Foreground (debug) and daemonized modes
-* Plugin management namespace (WIP)
+* Plugin management namespace
+* Install and Update nucleus-shell
+* Manage quickshell ipc's
 
 ---
 
@@ -35,7 +37,7 @@ go mod tidy
 go build
 ```
 
-(Optional)
+(Required)
 
 ```sh
 sudo mv nucleus /usr/local/bin/
@@ -63,10 +65,23 @@ nucleus run
 
 #### Flags
 
-| Flag       | Short | Description                                        |
-| ---------- | ----- | -------------------------------------------------- |
-| `--reload` | `-r`  | Kill existing QuickShell instances before starting |
-| `--debug`  | `-d`  | Run in foreground (no daemon)                      |
+```Nucleus is a beautiful, customizable shell built to get things done
+
+Usage:
+  nucleus [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  install     Install or Update Nucleus Shell
+  ipc         Interact with the shell via IPC
+  plugins     Manage Nucleus Shell plugins
+  run         Start The Nucleus Shell
+
+Flags:
+  -h, --help   help for nucleus
+
+Use "nucleus [command] --help" for more information about a command.```
 
 #### Examples
 
@@ -90,7 +105,7 @@ nucleus run --reload
 
 ---
 
-### `nucleus plugins` (WIP)
+### `nucleus plugins`
 
 Plugin management command namespace.
 
@@ -98,9 +113,7 @@ Plugin management command namespace.
 nucleus plugins
 ```
 
-> Subcommands are not implemented yet.
-
-Planned plugin sources:
+Plugin sources:
 
 * Official: `https://github.com/xZepyx/nucleus-plugins.git`
 

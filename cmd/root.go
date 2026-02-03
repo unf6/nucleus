@@ -7,14 +7,8 @@ import (
 
 var rootCmd = &cobra.Command{
         Use:   "nucleus",
-        Short: "Nucleus Shell - Modern Wayland Shell Built For Hyprland",
-        Long: `Nucleus Is A Beautiful, Customizable Shell.
-
-Features:
-  - Matugen Color Integration
-  - Hot-reloading themes
-  - Color Schemes
-  - Fully customizable`,
+        Short: "Nucleus Shell - A Modern Wayland Shell Built For Hyprland",
+        Long: `Nucleus is a beautiful, customizable shell built to get things done`,
 }
 
 func Execute() error {

@@ -3,9 +3,9 @@ module github.com/unf6/nucleus
 go 1.25.4
 
 require (
+	gabe565.com/spinners v1.3.0
 	github.com/charmbracelet/log v0.4.2
 	github.com/spf13/cobra v1.10.2
-    gabe565.com/spinners v1.3.0
 )
 
 require (
