@@ -145,25 +145,30 @@ func runUpdate(mode string) error {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("github api returned status %d", resp.StatusCode)
+	}
+
 	var releases []map[string]any
 	if err := json.NewDecoder(resp.Body).Decode(&releases); err != nil {
 		return err
 	}
 
 	var latestTag string
-	for i := len(releases) - 1; i >= 0; i-- {
-		r := releases[i]
-
-		if r["draft"].(bool) {
+	for _, r := range releases {
+		draft, _ := r["draft"].(bool)
+		if draft {
+			continue
+		}
+		prerelease, _ := r["prerelease"].(bool)
+		if mode == "stable" && prerelease {
 			continue
 		}
 
-		if mode == "stable" && r["prerelease"].(bool) {
-			continue
+		if tag, ok := r["tag_name"].(string); ok && tag != "" {
+			latestTag = tag
+			break
 		}
-
-		latestTag, _ = r["tag_name"].(string)
-		break
 	}
 
 	if latestTag == "" {
@@ -197,6 +202,10 @@ func runUpdate(mode string) error {
 		return err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to download source archive: status %d", resp.StatusCode)
+	}
 
 	if _, err := io.Copy(out, resp.Body); err != nil {
 		return err
@@ -248,7 +257,7 @@ func runUpdate(mode string) error {
 	)
 
 	if _, err := os.Stat(srcDir); err != nil {
-		return fmt.Errorf("nucleus-shell folder not found in source archive")
+		return fmt.Errorf("nucleus-shell folder not found in source archive: %w", err)
 	}
 
 	os.RemoveAll(qsDir)
@@ -268,9 +277,11 @@ func runUpdate(mode string) error {
 		return err
 	}
 
+	// restart qs
 	exec.Command("killall", "qs").Run()
 	exec.Command("nohup", "qs", "-c", "nucleus-shell").Start()
 
 	fmt.Printf("Updated %s → %s\n", current, latest)
 	return nil
 }
+		
