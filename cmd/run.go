@@ -1,7 +1,6 @@
 package cmd
 
 import (
-//	"fmt"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -9,13 +8,13 @@ import (
 
 	"github.com/unf6/nucleus/internal/config"
 	"github.com/unf6/nucleus/internal/shell"
-   	"github.com/charmbracelet/log"
+	"github.com/unf6/nucleus/cmd/prompt"
 	"github.com/spf13/cobra"
 )
 
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Start The Nucleus Shell",
+	Short: "Start the Nucleus Shell",
 	Long: `Start the Nucleus Shell using QuickShell.
 
 This will launch QuickShell with the Nucleus Shell configuration.`,
@@ -24,8 +23,8 @@ This will launch QuickShell with the Nucleus Shell configuration.`,
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-	runCmd.Flags().BoolP("reload", "r", false, "Kill existing instance before starting")
-	runCmd.Flags().BoolP("debug", "d", false, "Run in foreground (without --daemonize)")
+	runCmd.Flags().BoolP("reload", "r", false, "Stop existing instance before starting")
+	runCmd.Flags().BoolP("debug", "d", false, "Run in foreground (no --daemonize)")
 }
 
 func runShell(cmd *cobra.Command, args []string) error {
@@ -33,27 +32,27 @@ func runShell(cmd *cobra.Command, args []string) error {
 	debug, _ := cmd.Flags().GetBool("debug")
 
 	if !config.IsInstalled() {
-		log.Error("Nucleus Shell is not installed. Run 'nucleus install' first")
+		return prompt.Fail("Nucleus Shell is not installed. Run 'nucleus install' first.")
 	}
 
 	if reload {
-		log.Info("Stopping existing QuickShell instances...")
+		prompt.Stage("Stopping existing QuickShell instances...")
 		if err := shell.KillQuickShell(); err != nil {
-			log.Error("Warning: %v\n", err)
+			prompt.Warn("Warning: %v", err)
 		}
 	}
 
 	shellPath, err := config.GetConfigDir()
 	if err != nil {
-		 log.Error("failed to get shell config path: %w", err)
+		return prompt.Fail("Failed to get shell config path: %v", err)
 	}
 
 	var quickshellCmd *exec.Cmd
 	if debug {
-		log.Debug("Starting Nucleus Shell in debug mode (foreground)...")
+		prompt.Stage("Starting Nucleus Shell in debug mode (foreground)...")
 		quickshellCmd = exec.Command("quickshell", "--no-duplicate", "-c", shellPath)
 	} else {
-		log.Info("Starting Nucleus Shell.")
+		prompt.Stage("Starting Nucleus Shell in background...")
 		quickshellCmd = exec.Command("quickshell", "--no-duplicate", "--daemonize", "-c", shellPath)
 	}
 	quickshellCmd.Stdout = os.Stdout
@@ -63,19 +62,19 @@ func runShell(cmd *cobra.Command, args []string) error {
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
 	if err := quickshellCmd.Start(); err != nil {
-		 log.Error("failed to start QuickShell: %w", err)
+		return prompt.Fail("Failed to start QuickShell: %v", err)
 	}
 
-	log.Warn("Nucleus Shell started (PID: %d)\n", quickshellCmd.Process.Pid)
+	prompt.Success("Nucleus Shell started (PID: %d)", quickshellCmd.Process.Pid)
 
 	go func() {
 		<-sigChan
-		log.Error("\nShutting down Nucleus Shell...")
-		quickshellCmd.Process.Signal(syscall.SIGTERM)
+		prompt.Warn("\nShutting down Nucleus Shell...")
+		_ = quickshellCmd.Process.Signal(syscall.SIGTERM)
 	}()
 
 	if err := quickshellCmd.Wait(); err != nil {
-		 log.Error("QuickShell exited with error", err)
+		prompt.Warn("QuickShell exited with error: %v", err)
 	}
 
 	return nil
