@@ -1,8 +1,21 @@
-# Nucleus
+<div align="center">
 
-`nucleus` is the command-line interface for managing and running **Nucleus Shell**, a modern Wayland shell built on **QuickShell** for **Hyprland**.
+# ✦ Nucleus ✦
 
-This repository contains the **cli** for **nucleus-shell**
+<p>
+  <img src="https://img.shields.io/github/last-commit/unf6/nucleus?style=for-the-badge&color=8ad7eb&logo=git&logoColor=D9E0EE&labelColor=1E202B" alt="Last Commit" />
+  <img src="https://img.shields.io/github/stars/unf6/nucleus?style=for-the-badge&logo=andela&color=86dbd7&logoColor=D9E0EE&labelColor=1E202B" alt="Stars" />
+  <img src="https://img.shields.io/github/repo-size/unf6/nucleus?color=86dbce&label=SIZE&logo=protondrive&style=for-the-badge&logoColor=D9E0EE&labelColor=1E202B" alt="Repo Size" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Maintenance-Active%20-6BCB77?style=for-the-badge&logo=vercel&logoColor=D9E0EE&labelColor=1E202B" alt="Maintenance" />
+</p>
+
+</div>
+
+---
+<h2 align="center">✦ Overview ✦ </h2>
+
+#### A blazingly fast CLI for managing and supercharging nucleus-shell.
 
 ---
 
@@ -14,6 +27,15 @@ This repository contains the **cli** for **nucleus-shell**
 * Plugin management namespace
 * Install and Update nucleus-shell
 * Manage quickshell ipc's
+
+---
+
+
+> [!IMPORTANT]
+> * You can also join the [discord server](https://discord.gg/SvQMhuMXXa) for help.
+> * **Before reporting an issue:**
+  If you encounter a problem in the current release, please first test against the latest source code by cloning the repository (`git clone ...`). This ensures you are not reporting an issue that has already been fixed.
+  Only open an issue if the problem is still reproducible on the latest source.
 
 ---
 
@@ -41,6 +63,12 @@ go build
 
 ```sh
 sudo mv nucleus /usr/local/bin/
+```
+
+### Installing Via Aur
+
+```sh
+yay -S nucleus-cli
 ```
 
 ---
