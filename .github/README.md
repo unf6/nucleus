@@ -81,7 +81,8 @@ Available Commands:
 Flags:
   -h, --help   help for nucleus
 
-Use "nucleus [command] --help" for more information about a command.```
+Use "nucleus [command] --help" for more information about a command.
+```
 
 #### Examples
 
