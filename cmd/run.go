@@ -8,7 +8,7 @@ import (
 
 	"github.com/unf6/nucleus/internal/config"
 	"github.com/unf6/nucleus/internal/shell"
-	"github.com/unf6/nucleus/cmd/prompt"
+	"github.com/unf6/nucleus/internal/prompt"
 	"github.com/spf13/cobra"
 )
 
