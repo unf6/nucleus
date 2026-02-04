@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/unf6/nucleus/cmd/prompt"
+	"github.com/unf6/nucleus/internal/prompt"
 	"github.com/unf6/nucleus/internal/ipc"
 )
 
