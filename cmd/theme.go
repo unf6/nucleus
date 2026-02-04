@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"github.com/unf6/nucleus/internal/prompt"
-  "github.com/unf6/nucleus/internal/ipc"
+    "github.com/unf6/nucleus/internal/ipc"
+	"github.com/unf6/nucleus/internal/config" 
 	"fmt"
 	"os"
 	"os/exec"
@@ -28,6 +29,11 @@ var ThemeCmd = &cobra.Command{
 		return nil
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
+
+		if !config.IsInstalled() {
+		return prompt.Fail("Nucleus Shell is not installed. Run 'nucleus install' first.")
+		}
+		
 		home, err := os.UserHomeDir()
 		if err != nil {
 			return err
