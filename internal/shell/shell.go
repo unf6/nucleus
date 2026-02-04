@@ -3,7 +3,7 @@ package shell
 import (
 	"os/exec"
 
-	"github.com/unf6/nucleus/cmd/prompt"
+	"github.com/unf6/nucleus/internal/prompt"
 )
 
 // KillQuickShell forcibly stops any running QuickShell instances
