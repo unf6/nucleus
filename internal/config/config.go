@@ -27,15 +27,6 @@ func GetConfigDir() (string, error) {
 	return filepath.Join(homeDir, ".config", "quickshell", ConfigDirName), nil
 }
 
-// GetPluginDir returns the path to the plugins directory inside Nucleus Shell config
-func GetPluginDir() (string, error) {
-	configDir, err := GetConfigDir()
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(configDir, "plugins"), nil
-}
-
 // IsInstalled checks if the shell.qml file exists in the config directory
 func IsInstalled() bool {
 	configDir, err := GetConfigDir()
