@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/unf6/nucleus/internal/prompt"
 	"github.com/unf6/nucleus/internal/config"
