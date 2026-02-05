@@ -6,7 +6,6 @@ import (
 	"github.com/unf6/nucleus/internal/config" 
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
