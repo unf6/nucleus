@@ -27,7 +27,7 @@ var Dependencies = []string{
 	"kitty",
 	"kvantum",
 	"kvantum-qt5",
-	"matugen-bin",
+	"matugen-git",
 	"nautilus",
 	"nerd-fonts",
 	"networkmanager",
