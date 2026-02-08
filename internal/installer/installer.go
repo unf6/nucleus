@@ -96,8 +96,8 @@ func InstallDependencies() error {
 		return err
 	}
 	
-	args := append([]string{"yay", "-S", "--needed", "--noconfirm"}, Dependencies...)
-	cmd := exec.Command(args...)
+	args := append([]string{"-S", "--needed", "--noconfirm"}, Dependencies...)
+	cmd := exec.Command("yay", args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
