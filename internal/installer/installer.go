@@ -97,7 +97,7 @@ func InstallDependencies() error {
 	}
 	
 	args := append([]string{"yay", "-S", "--needed", "--noconfirm"}, Dependencies...)
-	cmd := exec.Command("sudo", args...)
+	cmd := exec.Command(args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
