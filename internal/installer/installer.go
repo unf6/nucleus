@@ -22,6 +22,7 @@ var Dependencies = []string{
 	"hyprpaper",
 	"wl-color-picker",
 	"imagemagick",
+	"qt6-svg",
 	"hyprsunset",
 	"jq",
 	"kitty",
